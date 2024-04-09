@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="{% static 'images/logo/logo yen sao.jpg' %}" type="image/x-icon">
+
+  <title>Liên Hệ</title>
+
+  <style>
+    /* CSS cho trường Name, Email và Message */
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      /* Định cỡ cho ô nhập liệu */
+      width: 500px; /* Chiều rộng */
+      /* Các thuộc tính khác */
+      border: 1px solid #ccc;
+      padding: 8px;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+     
+    }
+
+    label[for="id_Message"] {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    label {
+      font-size: 20px; /* Thu nhỏ kích thước font */
+    }
+
+    /* CSS cho nút Gửi tin nhắn */
+    input[type="submit"] {
+      /* Định cỡ cho nút Gửi tin nhắn */
+      width: 150px; /* Chiều rộng */
+      /* Các thuộc tính khác */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+   
+    }
+  </style>
+
+
+</head>
+
+<body style="background-color: #B3E5FC;">
+
+  {%if request.user.is_authenticated%}
+    {% include "ecom/user/customer_navbar.html" %}
+  {%else%}
+    {% include "ecom/core/navbar.html" %}
+  {%endif%}
+
+  <center>
+    <h3 class='alert alert-success'>Gửi cho chúng tôi phản hồi có giá trị của bạn !</h3>
+
+    <form method="POST">
+      <!-- Very Important csrf Token -->
+      {% csrf_token %}
+      <div class="form-group">
+        <p>
+        <h3>{{ form.as_p }}</h3>
+        </p>
+        <br>
+        <input type="submit" value="Gửi tin nhắn" class='btn btn-primary btn-lg'>
+      </div>
+    </form>
+  </center>
+  {% include "ecom/core/footer.html" %}
+</body>
+
+</html>

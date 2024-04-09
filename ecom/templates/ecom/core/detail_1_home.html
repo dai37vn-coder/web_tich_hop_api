@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="{% static 'images/logo/logo yen sao.jpg' %}" type="image/x-icon">
+  <title>Chi tiết sản phẩm</title>
+
+  <title>sumit</title>
+  <style media="screen">
+    .footer{
+      position: fixed;
+    }
+   
+
+    .brand {
+      font-size: 18px;
+      color: black;
+  }
+  
+  .about {
+      font-size: 16px;
+      color: black;
+  }
+  
+  .product-description h1 {
+      font-size: 22px;
+      color: black;
+  }
+  .product-description h2 {
+    font-size: 22px;
+    color: black;
+}
+  
+  .product-description p {
+      font-size: 16px;
+      color: black;
+  }
+  
+  .product-description ul,
+  .product-description ol {
+      font-size: 16px;
+      color: black;
+      margin-left: 20px;
+  }
+  
+  .cart button {
+      font-size: 16px;
+  }
+  
+.text-uppercase text-muted brand{
+  color: black;
+}
+
+
+    
+  </style>
+</head>
+
+<body style="background-color: #B3E5FC;">
+    {% include "ecom/core/navbar.html" %}
+
+  
+
+  <br><br><br>
+
+  <div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <div class="text-center p-4"> <img id="main-image" src="{% static 'images/products/yen tao sen.jpg' %}" width="465" height="550"/> </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                 
+                        <div class="product p-4">
+                          
+                            <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Giới thiệu chi tiết sản phẩm</span>
+                                
+                            </div>
+                            <p class="about">Giá sản phẩm 40.000 đ.</p>
+                            <div class="product-description">
+                              <h1>Yến chưng táo đỏ hạt sen</h1>
+                              <p>
+                                Yến chưng táo đỏ hạt sen là một món ăn truyền thống phong phú về dinh dưỡng và hương vị tinh tế. Đây là một sự kết hợp độc đáo giữa yến sào quý hiếm, táo đỏ giàu vitamin và hạt sen mềm mịn.
+                              </p>
+                              
+                              <h2>Thành phần:</h2>
+                              <ul>
+                                <li>Yến sào: Chứa nhiều protein, collagen và dưỡng chất quý giá.</li>
+                                <li>Táo đỏ: Được biết đến với hàm lượng vitamin C cao và chất chống oxy hóa.</li>
+                                <li>Hạt sen: Chứa nhiều chất dinh dưỡng như vitamin và khoáng chất.</li>
+                              </ul>
+                              
+                              <h2>Công dụng:</h2>
+                              <ol>
+                                <li>Dưỡng chất cho sức khỏe: Yến sào cung cấp collagen tốt cho da và hỗ trợ hệ thống miễn dịch.</li>
+                                <li>Tăng cường năng lượng: Táo đỏ giúp tăng cường sức khỏe và chống lão hóa.</li>
+                                <li>Bổ sung dưỡng chất: Hạt sen cung cấp nhiều vitamin và khoáng chất quý giá.</li>
+                              </ol>
+                            </div>
+                         
+                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  {% include "ecom/core/footer.html" %}
+</body>
+
+</html>
+

@@ -1,0 +1,608 @@
+{% extends 'ecom/user/customer_base.html' %}
+{% load static %}
+{% block content %}
+
+
+  <style media="screen">
+    body,
+html {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.d-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.align-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.flex-centerY-centerX {
+  justify-content: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+body {
+  background-color:#8c9eff;
+}
+
+.page-wrapper {
+  height: 100%;
+  display: table;
+}
+
+.page-wrapper .page-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.el-wrapper {
+  width: 360px;
+  padding: 15px;
+  margin: 15px auto;
+  background-color: #fff;
+}
+
+@media (max-width: 991px) {
+  .el-wrapper {
+    width: 345px;
+  }
+}
+
+@media (max-width: 767px) {
+  .el-wrapper {
+    width: 290px;
+    margin: 30px auto;
+  }
+}
+
+.el-wrapper:hover .h-bg {
+  left: 0px;
+}
+
+.el-wrapper:hover .price {
+  left: 20px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #818181;
+}
+
+.el-wrapper:hover .add-to-cart {
+  left: 95%;
+}
+
+.el-wrapper:hover .img {
+  webkit-filter: blur(7px);
+  -o-filter: blur(7px);
+  -ms-filter: blur(7px);
+  filter: blur(7px);
+  filter: progid:DXImageTransform.Microsoft.Blur(pixelradius='7', shadowopacity='0.0');
+  opacity: 0.4;
+}
+
+.el-wrapper:hover .info-inner {
+  bottom: 155px;
+}
+
+.el-wrapper:hover .a-size {
+  -webkit-transition-delay: 300ms;
+  -o-transition-delay: 300ms;
+  transition-delay: 300ms;
+  bottom: 50px;
+  opacity: 1;
+  float: left;
+  text-align: left;
+}
+
+.el-wrapper .box-down {
+  width: 70%;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.el-wrapper .box-up {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.el-wrapper .img {
+  padding: 20px 0;
+  -webkit-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  -o-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -o-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+}
+
+.h-bg {
+  -webkit-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  -o-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -o-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  width: 660px;
+  height: 100%;
+  background-color: #3f96cd;
+  position: absolute;
+  left: -659px;
+}
+
+.h-bg .h-bg-inner {
+  width: 50%;
+  height: 100%;
+  background-color: #464646;
+}
+
+.info-inner {
+  -webkit-transition: all 400ms cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition: all 400ms cubic-bezier(0, 0, 0.18, 1);
+  -o-transition: all 400ms cubic-bezier(0, 0, 0.18, 1);
+  transition: all 400ms cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -o-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  position: absolute;
+  width: 70%;
+  bottom: 25px;
+}
+
+.info-inner .p-name,
+.info-inner .p-company {
+  display: block;
+}
+
+.info-inner .p-name {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 18px;
+  color: #252525;
+
+}
+
+.info-inner .p-company {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #FFE11B;
+  
+}
+
+.a-size {
+  -webkit-transition: all 300ms cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition: all 300ms cubic-bezier(0, 0, 0.18, 1);
+  -o-transition: all 300ms cubic-bezier(0, 0, 0.18, 1);
+  transition: all 300ms cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -o-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  position: absolute;
+  width: 100%;
+  bottom: -20px;
+  font-family: 'PT Sans', sans-serif;
+  color: #828282;
+  opacity: 0;
+  float: left;
+  text-align: left;
+}
+
+.a-size .size {
+  color: #252525;
+}
+
+.cart {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  width: 70%;
+
+}
+
+.cart .price {
+  -webkit-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  -o-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -o-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-delay: 100ms;
+  -o-transition-delay: 100ms;
+  transition-delay: 100ms;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 47%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: #252525;
+}
+
+.cart .add-to-cart {
+  -webkit-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  -o-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  -o-transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.18, 1);
+  /* ease-out */
+  -webkit-transition-delay: 100ms;
+  -o-transition-delay: 100ms;
+  transition-delay: 100ms;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 110%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.cart .add-to-cart .txt {
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+
+/* phản hồi */
+.menu-category .sub-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.menu-category:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu li {
+  list-style-type: none;
+}
+
+.sub-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.sub-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+
+nav.desktop-navigation-menu a:hover {
+  text-decoration: none;
+  /* Các thuộc tính khác nếu muốn áp dụng khi hover */
+}
+
+
+  /*-----------------------------------*\
+    #BLOG
+  \*-----------------------------------*/
+  
+ 
+/* Loại bỏ gạch chân khi hover vào phần tử có class "blog-category" */
+.blog-category:hover {
+  text-decoration: none;
+}
+
+/* Loại bỏ gạch chân khi hover vào phần tử có class "blog-title" */
+.blog-title:hover {
+  text-decoration: none;
+}
+
+/* Loại bỏ gạch chân khi hover vào phần tử có class "blog-meta" */
+.blog-meta:hover {
+  text-decoration: none;
+}
+
+
+/* Khung chứa hình ảnh */
+.images {
+  max-width: 380px; /* Kích thước tối đa của khung chứa hình ảnh */
+  margin: 0 auto;
+  padding-left: 10px;
+}
+
+/* Hình ảnh sản phẩm */
+.images img {
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Class cho văn bản in hoa */
+.text-uppercase {
+  font-size: 25px; /* Kích thước chữ */
+  font-family: 'Arial', sans-serif; /* Phông chữ */
+  color: blue; /* Màu chữ ban đầu */
+
+  /* Hover effect */
+  transition: color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+}
+
+.text-uppercase:hover {
+  color: pink; /* Màu khi hover qua (ví dụ: màu đỏ) */
+}
+
+
+.act-price{
+  color: #FF3333;
+  font-size: 18px;
+  font-family: 'Arial'
+}
+
+
+/* khung toàn bộ */
+
+.about {
+  font-family: "Times New Roman", Times, serif; /* Phông chữ */
+  font-size: 22px; /* Cỡ chữ */
+  line-height: 1.5; /* Khoảng cách dòng */
+  color: #000; /* Màu chữ */
+  text-align: justify; /* Căn đều các dòng */
+}
+
+.about h2 {
+  font-size: 20px; /* Kích thước tiêu đề */
+  font-weight: bold; /* Đậm */
+  margin-bottom: 10px; /* Khoảng cách dưới tiêu đề */
+}
+
+.about p {
+  margin-bottom: 15px; /* Khoảng cách dưới đoạn văn bản */
+}
+
+.about ul {
+  list-style-type: disc; /* Kiểu danh sách */
+  margin-left: 20px; /* Khoảng cách bên trái của danh sách */
+}
+
+.col-md-10 {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  padding-left: 1px; /* Căn phải */
+  padding-right: 100px; /* Căn trái */
+  max-width: none; /* Loại bỏ giới hạn chiều rộng tối đa */
+ 
+}
+
+.desktop-navigation-menu {
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+
+  </style>
+
+
+ <!--
+      - MENU
+    -->
+
+    <nav class="desktop-navigation-menu">
+
+      <div class="container">
+  
+        <ul class="desktop-menu-category-list">
+  
+          <li class="menu-category">
+            <a href="customer-home" class="menu-title">Home</a>
+          </li>
+  
+          <li class="menu-category">
+            <a href="#" class="menu-title">Sản phẩm</a>
+  
+            <div class="dropdown-panel">
+              <ul class="dropdown-panel-list">
+            
+                {% for i in categories  %}
+                <li class="menu-title">
+                
+                  <a href="{% url 'category' %}?category={{i.slug}}">{{i.name}}</a>
+                </li>
+  
+                {% endfor %}
+  
+  
+                
+              </ul>
+  
+    
+  
+          <li class="menu-category">
+            <a href="#" class="menu-title">Liên hệ</a>
+            <ul class="sub-menu">
+              <li><a href="contactus">Liên hệ với shop</a></li>
+              <li><a href="aboutus">Thông Tin Shop</a></li>
+            </ul>
+          </li>
+  
+  
+          <li class="menu-category">
+            <a href="endow" class="menu-title">Ưu đãi hấp dẫn</a>
+          </li>
+          <li class="menu-category">
+            <a href="send-feedback" class="menu-title">Phản hồi</a>
+            <ul class="sub-menu">
+            
+            
+            </ul>
+          </li>
+  
+        </ul>
+  
+      </div>
+  
+    </nav>
+  
+   <!--
+        - MENU
+      -->
+
+
+
+
+
+
+
+
+  {%if products%}
+  <h3 style="text-align:center; color:yellow;">{{word}}</h3>
+  <br>
+  <!-- products data start -->
+  <div class="row">
+
+    
+    {% for p in  products%}
+        
+   
+        
+      <div class="container mt-5 mb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="images p-3">
+                                <div class="text-center p-4"> <img id="main-image" src="{% static p.product_image.url %}" width="250" /> </div>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="product p-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    
+                                </div>
+                              
+                                    <h5 class="text-uppercase">Tên: {{p.name}}</h5>
+                                    <div class="price d-flex flex-row align-items-center"> <span class="act-price">Giá: {{p.price}}đ</span>
+                                       
+                                    </div>
+                                </div>
+                                <p class="about">{{p.detail}}</p>
+                                
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+<!-- card1 end -->
+
+    </div>
+    <div class="row">
+          <br><br><br><br><br>
+       
+{% endif %}
+ 
+</div>
+<!-- products data enddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+
+
+
+
+
+
+<script>
+    {%if messages %}
+    {%for message in messages%}
+    alert('{{message}}');
+    {%endfor%}
+    {%endif%}
+</script>
+<br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+ 
+
+
+
+{% endblock content %}
+
+
+
+
+

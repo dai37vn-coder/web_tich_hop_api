@@ -1,0 +1,38 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'images/logo/logo yen sao.jpg' %}" type="image/x-icon">
+    <title>Lỗi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .error-container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 45px;
+            color: #f00;
+        }
+        p {
+            font-size: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>Xảy ra lỗi !</h1>
+        <p>Hãy nhập mã vận đơn hoặc kiểm tra lại mã vận đơn của bạn .</p>
+    </div>
+</body>
+</html>

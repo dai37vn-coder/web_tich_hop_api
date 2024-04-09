@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="{% static 'images/logo/logo yen sao.jpg' %}" type="image/x-icon">
+  <title>Ưa đãi hấp dẫn</title>
+
+  <title>sumit</title>
+  <style media="screen">
+    .footer{
+      position: fixed;
+    }
+
+
+    .promotion-card {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px;
+        text-align: center;
+    }
+    
+    .promotion-card h2 {
+        font-size: 24px;
+        color: #333;
+    }
+    
+    .promotion-card p {
+        font-size: 16px;
+        color: #666;
+    }
+    
+    .promotion-card a {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #ff9800;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .promotion-card a:hover {
+        background-color: #f57c00;
+    }
+    
+    .promotion-card ul {
+        text-align: left;
+        list-style-type: none;
+        margin-left: 0;
+        padding-left: 20px;
+    }
+    
+    .promotion-card ul li {
+        margin-bottom: 5px;
+    }
+    
+/* CSS cho hình ảnh trong thẻ img */
+.promotion-card img.banner-img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+     
+  </style>
+</head>
+
+<body style="background-color: #B3E5FC;">
+  {% include "ecom/core/navbar.html" %}
+  <br><br><br>
+
+
+
+
+<h3 style="text-align:center;">
+    <div class="promotion-card">
+        <h2>Yến Sào Tự Nhiên - Chỉ Trong Tuần Này</h2>
+        <p>Giảm 20% cho Đơn Hàng Trên 1 Triệu Đồng!</p>
+        <p>Combo Đặc Biệt: Yến Sào Loại 1 + Hộp Quà chỉ với 999K!</p>
+        <img src="{% static 'images/uu dai.jpg' %}" alt="women's latest fashion sale" class="banner-img">
+
+    
+        <h3>Ưu Đãi Đặc Biệt:</h3>
+        <ul>
+            <li>Lợi ích Sức Khỏe từ Yến Sào Tự Nhiên</li>
+            <li>Đánh Giá Tích Cực từ Khách Hàng</li>
+            <li>Miễn Phí Giao Hàng Cho Đơn Hàng Trên 500K!</li>
+        </ul>
+    
+        <p>Tham Gia Ngay:</p>
+        <a href="[Link]">Quảng cáo trên mạng xã hội</a>
+        <a href="[Link]">Đăng ký nhận tin để nhận mã giảm giá đặc biệt!</a>
+    </div>
+    
+
+
+
+
+</h3>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  {% include "ecom/core/footer.html" %}
+</body>
+
+</html>

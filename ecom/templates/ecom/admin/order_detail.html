@@ -1,0 +1,237 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'images/logo/logo yen sao.jpg' %}" type="image/x-icon">
+    <title>Chi tiết vận đơn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ECAB53;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            outline: 6px solid #add8e6;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #000;
+            font-family: Arial, sans-serif; /* Font chữ */
+            font-size: 40px; /* Cỡ chữ */
+            text-transform: uppercase;
+        }
+        
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        input[type="text"] {
+            padding: 12px;
+            margin-right: 10px;
+            border: 1px solid #000;
+            border-radius: 4px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        .order-details {
+            margin-left: 35px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+        
+        .items-list {
+            padding-top: 20px;
+            margin-left: 35px;
+          
+        }
+        
+        /* Các style cụ thể cho từng phần tử thông tin đơn hàng có thể được thêm vào ở đây */
+      
+        .your-link-class {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #ECAB53;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            margin-left: 450px;
+        }
+        
+        .your-link-class:hover {
+            background-color: #ffffff;
+            color: #3498db;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <a href="{% url 'admin_dashboard' %}" class="your-link-class">
+            <img src="{% static 'images/logo/logo_addmin.jpg' %}" alt="Anon's logo" width="160" height="70">
+        </a>
+
+    <h1>Chi Tiết Vận Đơn</h1>
+    <form action="{% url 'get_order_from_api' %}" method="get">
+        <input type="text" name="order_code" placeholder="Nhập mã vận đơn">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+    {% if data %}
+    <div class="order-details">
+        <h2>Chi tiết đơn hàng</h2>
+        <p>Mã đơn hàng: {{ data.order_code }}</p>
+        <p>Tên người nhận: {{ data.to_name}}</p>
+        <p>Số điện thoại người nhận: {{ data.to_phone}}</p>
+        <p>Địa chỉ người nhận: {{ data.to_address}}</p>
+        <p>Lưu ý giao hàng: {{ data.required_note}}</p>
+        <p>Tên người gửi: {{ data.from_name}}</p>
+        <p>Số điện thoại người gửi: {{ data.from_phone}}</p>
+        <p>Địa chỉ người gửi: {{ data.from_address}}</p>
+        <p> <span id="orderDate"></span></p>
+        <p id="leadTime"></p>
+        <p>Tiền thu hộ cho người gửi: {{ data.cod_amount}} VND</p>
+        <p>Khối lượng của đơn hàng: {{ data.weight}} gram</p>
+        <p>Chiều dài của đơn hàng : {{ data.length}} cm</p>
+        <p>Chiều rộng của đơn hàng: {{ data.width}} cm</p>
+        <p>Chiều cao của đơn hàng: {{ data.height}} cm</p>
+        <p id="paymentType">Người trả phí: {{ data.payment_type_id}}</p>
+        <p id="status">Trạng thái của đơn hàng: </p>
+        <!-- Hiển thị các thông tin khác của đơn hàng -->
+    </div>
+        <script>
+            // Lấy ngày tháng từ data.order_date
+            let orderDate = new Date("{{ data.order_date }}");
+            // Định dạng thời gian tạo đơn hàng Việt Nam
+            let formattedOrderDate = orderDate.toLocaleTimeString('vi-VN', {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric'
+            });
+            let formattedOrderDateFull = orderDate.toLocaleDateString('vi-VN', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            // Hiển thị ngày tháng đã định dạng trong thẻ p có id="orderDate"
+            document.getElementById("orderDate").innerText = `Ngày tạo đơn hàng: lúc ${formattedOrderDate} ngày ${formattedOrderDateFull}`;
+
+          
+         // Lấy thời gian giao hàng dự kiến từ data.leadtime và chuyển đổi sang dạng Date
+         let leadTime = new Date("{{ data.leadtime }}");
+
+         // Định dạng thời gian giao hàng dự kiến theo ngôn ngữ Việt Nam
+         let formattedLeadTime = leadTime.toLocaleTimeString('vi-VN', {
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        });
+        
+        let formattedLeadTimeFull = leadTime.toLocaleDateString('vi-VN', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+
+         // Hiển thị thời gian giao hàng dự kiến đã định dạng trong thẻ p có id="leadTime"
+         document.getElementById("leadTime").innerText = `Thời gian giao hàng dự kiến: lúc ${formattedLeadTime} ngày ${formattedLeadTimeFull}`;
+
+
+         // Trạng thái giao hàng
+         var data = {
+            status: 'ready_to_pick' // Giá trị trạng thái từ API
+        };
+
+        // Ánh xạ giá trị trạng thái từ ngôn ngữ gốc sang tiếng Việt
+        var vietnameseStatus = '';
+        switch(data.status) {
+            case 'ready_to_pick':
+                vietnameseStatus = 'Đã sẵn sàng để lấy hàng';
+                break;
+            case 'waiting_for_pickup':
+                vietnameseStatus = 'Chờ lấy hàng';
+                break;
+            case 'shipping':
+                vietnameseStatus = 'Đang vận chuyển';
+                break;
+            case 'delivered':
+                vietnameseStatus = 'Đã giao hàng';
+                break;
+            default:
+                vietnameseStatus = 'Trạng thái không xác định';
+                break;
+        }
+
+        // Hiển thị trạng thái tiếng Việt trên trang web
+        document.getElementById('status').innerHTML += vietnameseStatus;
+
+
+        
+
+     // Người trả phí vận đơn
+     var paymentType = "{{ data.payment_type_id }}";
+     // Kiểm tra giá trị và thay đổi nội dung tương ứng
+     var paymentTypeElement = document.getElementById('paymentType');
+     if (paymentType === '2') {
+         paymentTypeElement.textContent = 'Người trả phí: Người nhận trả phí';
+     } else {
+         paymentTypeElement.textContent = 'Người gửi trả phí';
+     }
+
+            
+        </script>
+
+        
+    {% endif %}
+    <div class="items-list">
+    <h2>Chi tiết sản phẩm trong đơn hàng</h2>
+        {% for item in data.items %}
+            
+                <p>Tên : {{ item.name }}</p>
+                <p> Mã: {{ item.code }}</p>
+                <p> Số lượng: {{ item.quantity }}</p>
+               
+                <p>Chiều dài: {{ item.length }} cm</p>
+                <p>Chiều rộng: {{ item.width }} cm</p>
+                <p>Chiều cao: {{ item.height }} cm</p>
+                <p>Khối lượng: {{ item.weight }} gram</p>
+                <!-- Các thông tin khác về mặt hàng -->
+           
+        {% endfor %}
+        
+    </div>
+</div>
+</body>
+</html>
+

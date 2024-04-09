@@ -1,0 +1,183 @@
+{% extends 'ecom/core/homebase.html' %}
+{% load static %}
+{% block content %}
+
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<style media="screen">
+  .button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button2 {
+  background-color: white;
+  color: black;
+  border: 2px solid #008CBA;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+
+/* CSS để tùy chỉnh ô nhập số lượng */
+.product-quantity {
+  width: 80px; /* Độ rộng của ô nhập */
+  padding: 8px; /* Khoảng cách bên trong ô nhập */
+  text-align: center; /* Canh giữa nội dung trong ô nhập */
+  border: 1px solid #ccc; /* Viền của ô nhập */
+  border-radius: 4px; /* Bo tròn góc của ô nhập */
+  outline: none; /* Loại bỏ đường viền khi ô nhập được chọn */
+}
+
+/* CSS để tạo hover style khi rê chuột vào ô nhập */
+.product-quantity:hover {
+  border-color: #007bff; /* Màu viền khi rê chuột vào ô nhập */
+}
+
+
+
+
+</style>
+<script>
+  // Biến để lưu trữ thông tin sản phẩm trong giỏ hàng
+  var cartItems = [];
+
+  function updateTotal(inputElement, productId, productPrice) {
+      // Lấy giá trị số lượng
+      var quantity = parseInt(inputElement.value, 10);
+
+      // Kiểm tra xem quantity có phải là số hợp lệ không
+      if (isNaN(quantity)) {
+          // Nếu không phải số hợp lệ, cập nhật tổng cộng bằng 0
+          document.getElementById('total-price').innerText = "Tổng cộng : 0₫";
+          return;
+      }
+
+      // Kiểm tra xem sản phẩm đã được thêm vào giỏ hàng chưa
+      var existingItem = cartItems.find(item => item.productId === productId);
+
+      // Nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng
+      if (existingItem) {
+          existingItem.quantity = quantity;
+      } else {
+          // Nếu sản phẩm chưa có trong giỏ hàng, thêm vào giỏ hàng
+          cartItems.push({
+              productId: productId,
+              quantity: quantity,
+              price: parseFloat(productPrice)
+          });
+      }
+
+      // Tính tổng cộng mới cho toàn bộ giỏ hàng
+      var newTotal = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
+
+      // Cập nhật tổng cộng trên trang
+      document.getElementById('total-price').innerText = "Tổng cộng : " + newTotal.toFixed(2) + "₫";
+  }
+
+  function checkout() {
+      // Gửi thông tin giỏ hàng đến trang xác nhận đặt hàng hoặc xử lý đơn hàng
+      console.log(cartItems);
+  }
+</script>
+</head>
+
+<br><br><br><br>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 style="text-align:center;" class="panel-title">Giỏ hàng của tôi</h6>
+    </div>
+
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Tên</th>
+          <th>Hình Ảnh</th>
+          <th>Giá</th>
+          <th>Miêu Tả</th>
+          <th>Xóa khỏi giỏ hàng</th>
+          <th>Số lượng</th>
+        
+
+        </tr>
+      </thead>
+      {% for p in products %}
+  {% if p %}
+
+      <tr>
+        <td> {{p.name}}</td>
+        <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+        <td>{{p.price}} đ</td>
+   
+        <td>{{p.description}}</td>
+
+        <td><a class="btn btn-danger btn-xs" href="{% url 'remove-from-cart' p.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+      
+        <td>
+          <input type="number" class="product-quantity" value="1" min="1" onchange="updateTotal(this, {{ p.id }}, '{{ p.price }}')">
+      </td>
+   
+      </tr>
+      {%else%}
+      <br><br><br>
+      <h1>no products</h1>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<br><br><br>
+<div style="text-align: center;">
+  <button class="button button2" id="total-price">Tổng cộng : {{total|floatformat:2}}₫</button>
+  <a href="/customer-address"><button class="button"><span>Mua </span></button></a>
+</div>
+
+
+<br><br><br><br><br>
+
+
+
+{% endblock content %}

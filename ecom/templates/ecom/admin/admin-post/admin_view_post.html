@@ -1,0 +1,82 @@
+{% extends 'ecom/admin/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+
+
+    .float{
+      position:fixed;
+      width:70px;
+      height:70px;
+      bottom:60px;
+      right:60px;
+      background-color:red;
+      color:#FFF;
+      border-radius:50px;
+      text-align:center;
+      box-shadow: 3px 3px 3px #999;
+    }
+    
+    .my-float{
+      margin-top:22px;
+    }
+
+    
+  </style>
+</head>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Tổng số danh sách bài viết</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Tác Giả</th>
+          <th>Ngày xuất bản</th>
+          <th>Hình ảnh</th>
+          <th>Cập Nhật</th>
+          <th>Xóa</th>
+        </tr>
+      </thead>
+      {% for c in posts %}
+      <tr>
+        <td> {{c.title}}</td>
+        <td>{{c.author}}</td>
+        <td>{{c.published_at}}</td>
+        <td>  <img src="{% static c.post_image.url %}" alt="" class="post-image" height="40px" width="40px" /></td>
+        <td><a class="btn btn-primary btn-xs" href="{% url 'update-post' c.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-post' c.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<!-- add product floating button -->
+<a href="/admin-add-post" class="float">
+  <i class="fa fa-plus my-float"></i>
+  </a>
+  
+
+{% endblock content %}
